@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+   <children>
+      <TextArea prefHeight="282.0" prefWidth="870.0" text="Sobre o Sistema de Cadastro de Motores&#10;&#10;Bem-vindo ao Sistema de Cadastro de Motores, uma solução robusta e eficiente projetada para simplificar &#10;a gestão de registros de motores para a sua empresa. Este software foi criado para atender às necessidades &#10;específicas de empresas envolvidas na produção, manutenção e gestão de motores, garantindo que todas &#10;as informações vitais estejam facilmente acessíveis e bem organizadas.&#10;&#10;Principais Funcionalidades:&#10;&#10;- Banco de Dados Abrangente de Motores: Mantenha registros detalhados de todos os motores, incluindo &#10;especificações, histórico de manutenção e status operacional.&#10;- Interface Amigável: Navegue pelo sistema de forma simples com uma interface intuitiva e fácil de usar.&#10;- Busca e Filtro Avançados: Localize rapidamente registros específicos de motores usando opções avançadas &#10;de busca e filtragem.&#10;- Gestão Segura de Dados: Garanta a segurança e integridade dos seus dados com controles de acesso &#10;robustos e criptografia de dados.&#10;- Atualizações em Tempo Real: Mantenha seus registros de motores atualizados com entrada &#10;e modificações de dados em tempo real." />
+   </children>
+</VBox>
