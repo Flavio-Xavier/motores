@@ -32,7 +32,7 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void onMenuItemAreaAction() {
-		System.out.println("Area");
+		loadView("/gui/AreaList.fxml");
 	}
 	
 	@FXML
