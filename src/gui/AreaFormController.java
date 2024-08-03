@@ -9,9 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Area;
 
 public class AreaFormController implements Initializable{
 
+	private Area entity;
+	
 	@FXML
 	private TextField txtId;
 	
@@ -26,6 +29,10 @@ public class AreaFormController implements Initializable{
 	
 	@FXML
 	private Button btCancel;
+	
+	public void setArea(Area entity) {
+		this.entity = entity;
+	}
 	
 	@FXML
 	private void onBtSaveAction() {
@@ -46,6 +53,14 @@ public class AreaFormController implements Initializable{
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtName, 50);
+	}
+	
+	public void updatFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		txtId.setText(String.valueOf(entity.getId()));
+		txtName.setText(entity.getName());
 	}
 
 }

@@ -47,7 +47,8 @@ public class AreaListController implements Initializable {
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/AreaForm.fxml", parentStage);
+		Area obj = new Area();
+		createDialogForm(obj, "/gui/AreaForm.fxml", parentStage);
 	}
 	
 	public void setAreaService(AreaService service) {
@@ -75,10 +76,13 @@ public class AreaListController implements Initializable {
 		tableViewArea.setItems(obsList);
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Area obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			AreaFormController controller = loader.getController();
+			controller.setArea(obj);
+			controller.updatFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Informe o nome da Área");
