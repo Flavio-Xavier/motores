@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.listeners.DataChangeListener;
@@ -18,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.entities.Area;
+import model.exceptions.ValidationException;
 import model.services.AreaService;
 
 public class AreaFormController implements Initializable{
@@ -67,6 +70,9 @@ public class AreaFormController implements Initializable{
 			notifyDataChangeListeners();	
 			Utils.currentStage(event).close();
 		}
+		catch (ValidationException e) {
+			setErrorMessages(e.getErros());
+		}
 		catch (DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
@@ -80,8 +86,17 @@ public class AreaFormController implements Initializable{
 
 	private Area getFormData() {
 		Area obj = new Area();
+		ValidationException exception = new ValidationException("Validation error");
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		
+		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
+			exception.addError("nome", "O campo não pode ser vazio!");
+		}
 		obj.setName(txtName.getText());
+		
+		if (exception.getErros().size() > 0) {
+			throw exception;
+		}
 		return obj;
 	}
 
@@ -107,6 +122,13 @@ public class AreaFormController implements Initializable{
 		}
 		txtId.setText(String.valueOf(entity.getId()));
 		txtName.setText(entity.getName());
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		if(fields.contains("nome")) {
+			labelErrorName.setText(errors.get("nome"));
+		}
 	}
 
 }
