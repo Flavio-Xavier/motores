@@ -9,6 +9,7 @@ import application.Main;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,30 +30,33 @@ import model.entities.Area;
 import model.services.AreaService;
 
 public class AreaListController implements Initializable, DataChangeListener {
-	
+
 	private AreaService service;
-	
+
 	@FXML
 	private TableView<Area> tableViewArea;
-	
+
 	@FXML
 	private TableColumn<Area, Integer> tableColumnId;
-	
+
 	@FXML
 	private TableColumn<Area, String> tableColumnName;
-	
+
+	@FXML
+	private TableColumn<Area, Area> tableColumnEDIT;
+
 	@FXML
 	private Button btNew;
-	
+
 	private ObservableList<Area> obsList;
-	
+
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Area obj = new Area();
 		createDialogForm(obj, "/gui/AreaForm.fxml", parentStage);
 	}
-	
+
 	public void setAreaService(AreaService service) {
 		this.service = service;
 	}
@@ -67,7 +72,7 @@ public class AreaListController implements Initializable, DataChangeListener {
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewArea.prefHeightProperty().bind(stage.heightProperty());
 	}
-	
+
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
@@ -75,8 +80,9 @@ public class AreaListController implements Initializable, DataChangeListener {
 		List<Area> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewArea.setItems(obsList);
+		initEditButtons();
 	}
-	
+
 	private void createDialogForm(Area obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
@@ -86,7 +92,7 @@ public class AreaListController implements Initializable, DataChangeListener {
 			controller.setAreaService(new AreaService());
 			controller.subscribeDataChangeListener(this);
 			controller.updatFormData();
-			
+
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Informe o nome da Área");
 			dialogStage.setScene(new Scene(pane));
@@ -94,8 +100,8 @@ public class AreaListController implements Initializable, DataChangeListener {
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-			
-		}catch (IOException e) {
+
+		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
@@ -103,6 +109,25 @@ public class AreaListController implements Initializable, DataChangeListener {
 	@Override
 	public void onDataChanged() {
 		updateTableView();
+	}
+
+	private void initEditButtons() {
+		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Area, Area>() {
+			private final Button button = new Button("edit");
+
+			@Override
+			protected void updateItem(Area obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/AreaForm.fxml", Utils.currentStage(event)));
+			}
+		});
 	}
 
 }
