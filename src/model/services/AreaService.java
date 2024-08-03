@@ -23,4 +23,8 @@ public class AreaService {
 			dao.update(obj);
 		}
 	}
+	
+	public void remove(Area obj) {
+		dao.deleteById(obj.getId());
+	}
 }
