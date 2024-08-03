@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Area;
 import model.services.AreaService;
 
-public class AreaListController implements Initializable {
+public class AreaListController implements Initializable, DataChangeListener {
 	
 	private AreaService service;
 	
@@ -83,6 +84,7 @@ public class AreaListController implements Initializable {
 			AreaFormController controller = loader.getController();
 			controller.setArea(obj);
 			controller.setAreaService(new AreaService());
+			controller.subscribeDataChangeListener(this);
 			controller.updatFormData();
 			
 			Stage dialogStage = new Stage();
@@ -96,6 +98,11 @@ public class AreaListController implements Initializable {
 		}catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 }

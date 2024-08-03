@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -21,6 +24,7 @@ public class AreaFormController implements Initializable{
 
 	private Area entity;
 	private AreaService service;
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
 	private TextField txtId;
@@ -45,6 +49,10 @@ public class AreaFormController implements Initializable{
 		this.service = service;
 	}
 	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 	@FXML
 	private void onBtSaveAction(ActionEvent event) {
 		if (entity == null) {
@@ -56,6 +64,7 @@ public class AreaFormController implements Initializable{
 		try {
 			entity = getFormData(); 
 			service.saveOrUpdate(entity);
+			notifyDataChangeListeners();	
 			Utils.currentStage(event).close();
 		}
 		catch (DbException e) {
@@ -63,6 +72,12 @@ public class AreaFormController implements Initializable{
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+	}
+
 	private Area getFormData() {
 		Area obj = new Area();
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
