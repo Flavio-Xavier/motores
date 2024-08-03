@@ -82,6 +82,7 @@ public class AreaListController implements Initializable {
 			Pane pane = loader.load();
 			AreaFormController controller = loader.getController();
 			controller.setArea(obj);
+			controller.setAreaService(new AreaService());
 			controller.updatFormData();
 			
 			Stage dialogStage = new Stage();
