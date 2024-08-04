@@ -28,7 +28,7 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
-                "INSERT INTO Equipamento (Name, AreaId) VALUES (?, ?)",
+                "INSERT INTO Equipamento (Nome, id_area) VALUES (?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS);
             
             st.setString(1, obj.getName());
@@ -58,7 +58,7 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
-                "UPDATE Equipamento SET Name = ?, AreaId = ? WHERE Id = ?");
+                "UPDATE Equipamento SET Nome = ?, id_area = ? WHERE Id = ?");
             
             st.setString(1, obj.getName());
             st.setInt(2, obj.getArea().getId());
@@ -94,8 +94,8 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                "SELECT Equipamento.*, area.Name as AreaName "
-                + "FROM Equipamento INNER JOIN area ON Equipamento.AreaId = area.Id "
+                "SELECT Equipamento.*, area.Nome as AreaName "
+                + "FROM Equipamento INNER JOIN area ON Equipamento.id_area = area.Id "
                 + "WHERE Equipamento.Id = ?");
             
             st.setInt(1, id);
@@ -120,9 +120,9 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                "SELECT Equipamento.*, area.Name as AreaName "
-                + "FROM Equipamento INNER JOIN area ON Equipamento.AreaId = area.Id "
-                + "ORDER BY Equipamento.Name");
+                "SELECT Equipamento.*, area.Nome as AreaName "
+                + "FROM Equipamento INNER JOIN area ON Equipamento.id_area = area.Id "
+                + "ORDER BY Equipamento.Nome");
             
             rs = st.executeQuery();
             
@@ -130,11 +130,11 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
             Map<Integer, Area> map = new HashMap<>();
             
             while (rs.next()) {
-                Area area = map.get(rs.getInt("AreaId"));
+                Area area = map.get(rs.getInt("id_area"));
                 
                 if (area == null) {
                     area = instantiateArea(rs);
-                    map.put(rs.getInt("AreaId"), area);
+                    map.put(rs.getInt("id_area"), area);
                 }
                 
                 Equipamento obj = instantiateEquipamento(rs, area);
@@ -155,9 +155,9 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                "SELECT Equipamento.*, area.Name as AreaName "
-                + "FROM Equipamento INNER JOIN area ON Equipamento.AreaId = area.Id "
-                + "WHERE AreaId = ? ORDER BY Equipamento.Name");
+                "SELECT Equipamento.*, area.Nome as AreaName "
+                + "FROM Equipamento INNER JOIN area ON Equipamento.id_area = area.Id "
+                + "WHERE id_area = ? ORDER BY Equipamento.Nome");
             
             st.setInt(1, area.getId());
             
@@ -167,11 +167,11 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
             Map<Integer, Area> map = new HashMap<>();
             
             while (rs.next()) {
-                Area areaObj = map.get(rs.getInt("AreaId"));
+                Area areaObj = map.get(rs.getInt("id_area"));
                 
                 if (areaObj == null) {
                     areaObj = instantiateArea(rs);
-                    map.put(rs.getInt("AreaId"), areaObj);
+                    map.put(rs.getInt("id_area"), areaObj);
                 }
                 
                 Equipamento obj = instantiateEquipamento(rs, areaObj);
@@ -189,15 +189,15 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
     private Equipamento instantiateEquipamento(ResultSet rs, Area area) throws SQLException {
         Equipamento obj = new Equipamento();
         obj.setId(rs.getInt("Id"));
-        obj.setName(rs.getString("Name"));
+        obj.setName(rs.getString("Nome"));
         obj.setArea(area);
         return obj;
     }
 
     private Area instantiateArea(ResultSet rs) throws SQLException {
         Area area = new Area();
-        area.setId(rs.getInt("AreaId"));
-        area.setName(rs.getString("AreaName"));
+        area.setId(rs.getInt("id"));
+        area.setName(rs.getString("Nome"));
         return area;
     }
 }

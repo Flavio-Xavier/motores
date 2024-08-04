@@ -1,6 +1,5 @@
 package gui;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,44 +23,42 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Area;
-import model.services.AreaService;
+import model.entities.Motor;
+import model.services.MotorService;
 
-public class AreaListController implements Initializable, DataChangeListener {
+public class MotorListController implements Initializable, DataChangeListener {
 
-	private AreaService service;
-
-	@FXML
-	private TableView<Area> tableViewArea;
+	private MotorService service;
 
 	@FXML
-	private TableColumn<Area, Integer> tableColumnId;
+	private TableView<Motor> tableViewMotor;
 
 	@FXML
-	private TableColumn<Area, String> tableColumnName;
+	private TableColumn<Motor, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Area, Area> tableColumnEDIT;
+	private TableColumn<Motor, String> tableColumnName;
 
 	@FXML
-	private TableColumn<Area, Area> tableColumnREMOVE;
+	private TableColumn<Motor, Motor> tableColumnEDIT;
+
+	@FXML
+	private TableColumn<Motor, Motor> tableColumnREMOVE;
 
 	@FXML
 	private Button btNew;
 
-	private ObservableList<Area> obsList;
+	private ObservableList<Motor> obsList;
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Area obj = new Area();
-		createDialogForm(obj, "/gui/AreaForm.fxml", parentStage);
+		Motor obj = new Motor();
+		createDialogForm(obj, "/gui/MotorForm.fxml", parentStage);
 	}
 
-	public void setAreaService(AreaService service) {
+	public void setMotorService(MotorService service) {
 		this.service = service;
 	}
 
@@ -76,41 +71,41 @@ public class AreaListController implements Initializable, DataChangeListener {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewArea.prefHeightProperty().bind(stage.heightProperty());
+		tableViewMotor.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Area> list = service.findAll();
+		List<Motor> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewArea.setItems(obsList);
+		tableViewMotor.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Area obj, String absoluteName, Stage parentStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			Pane pane = loader.load();
-			AreaFormController controller = loader.getController();
-			controller.setArea(obj);
-			controller.setAreaService(new AreaService());
-			controller.subscribeDataChangeListener(this);
-			controller.updatFormData();
-
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Informe o nome da Área");
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-			dialogStage.initOwner(parentStage);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
-
-		} catch (IOException e) {
-			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-		}
+	private void createDialogForm(Motor obj, String absoluteName, Stage parentStage) {
+//		try {
+//			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+//			Pane pane = loader.load();
+//			MotorFormController controller = loader.getController();
+//			controller.setMotor(obj);
+//			controller.setMotorService(new MotorService());
+//			controller.subscribeDataChangeListener(this);
+//			controller.updatFormData();
+//
+//			Stage dialogStage = new Stage();
+//			dialogStage.setTitle("Informe o nome da Área");
+//			dialogStage.setScene(new Scene(pane));
+//			dialogStage.setResizable(false);
+//			dialogStage.initOwner(parentStage);
+//			dialogStage.initModality(Modality.WINDOW_MODAL);
+//			dialogStage.showAndWait();
+//
+//		} catch (IOException e) {
+//			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
+//		}
 	}
 
 	@Override
@@ -120,29 +115,29 @@ public class AreaListController implements Initializable, DataChangeListener {
 
 	private void initEditButtons() {
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Area, Area>() {
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Motor, Motor>() {
 			private final Button button = new Button("edit");
 
 			@Override
-			protected void updateItem(Area obj, boolean empty) {
+			protected void updateItem(Motor obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/AreaForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/MotorForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Area, Area>() {
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Motor, Motor>() {
 			private final Button button = new Button("remove");
 
 			@Override
-			protected void updateItem(Area obj, boolean empty) {
+			protected void updateItem(Motor obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -154,7 +149,7 @@ public class AreaListController implements Initializable, DataChangeListener {
 		});
 	}
 
-	private void removeEntity(Area obj) {
+	private void removeEntity(Motor obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Tem certeza que deseja deletar?");
 		if(result.get() == ButtonType.OK) {
 			if (service == null) {

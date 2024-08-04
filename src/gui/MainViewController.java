@@ -17,6 +17,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.AreaService;
+import model.services.EquipamentoService;
+import model.services.MotorService;
 
 public class MainViewController implements Initializable{
 	
@@ -42,12 +44,18 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void onMenuItemEquipamentoAction() {
-		System.out.println("Equipamento");
+		loadView("/gui/EquipamentoList.fxml", (EquipamentoListController controller) -> {
+			controller.setEquipamentoService(new EquipamentoService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
 	public void onMenuItemMotorAction() {
-		System.out.println("Motor");
+		loadView("/gui/MotorList.fxml", (MotorListController controller) -> {
+			controller.setMotorService(new MotorService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
