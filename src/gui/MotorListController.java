@@ -11,6 +11,7 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,9 +37,54 @@ public class MotorListController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Motor, Integer> tableColumnId;
-
+	
 	@FXML
-	private TableColumn<Motor, String> tableColumnName;
+	private TableColumn<Motor, String> tableColumnTensao;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnCorrente;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnPotenciaCv;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnRotacao;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnCarcaca;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnFatorPotencia;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnFatorServico;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnFabricante;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnCodigoSap;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnPotenciaWatts;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnGrauProtecao;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnFrequencia;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnRolamentoDianteiro;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnRolamentoTraseiro;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnNameArea;
+	
+	@FXML
+	private TableColumn<Motor, String> tableColumnNameEquipamento;
 
 	@FXML
 	private TableColumn<Motor, Motor> tableColumnEDIT;
@@ -69,7 +115,22 @@ public class MotorListController implements Initializable, DataChangeListener {
 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tableColumnTensao.setCellValueFactory(new PropertyValueFactory<>("tensao"));
+		tableColumnCorrente.setCellValueFactory(new PropertyValueFactory<>("corrente"));
+		//tableColumnPotenciaCv.setCellValueFactory(new PropertyValueFactory<>("potenciaCv"));
+		tableColumnRotacao.setCellValueFactory(new PropertyValueFactory<>("rotacao"));
+		tableColumnCarcaca.setCellValueFactory(new PropertyValueFactory<>("carcaca"));
+		tableColumnFatorPotencia.setCellValueFactory(new PropertyValueFactory<>("fatorPotencia"));
+		tableColumnFatorServico.setCellValueFactory(new PropertyValueFactory<>("fatorServico"));
+		tableColumnFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+		tableColumnCodigoSap.setCellValueFactory(new PropertyValueFactory<>("codigoSap"));
+		tableColumnPotenciaWatts.setCellValueFactory(new PropertyValueFactory<>("potenciaWatts"));
+		tableColumnGrauProtecao.setCellValueFactory(new PropertyValueFactory<>("grauProtecao"));
+		tableColumnFrequencia.setCellValueFactory(new PropertyValueFactory<>("frequencia"));
+		tableColumnRolamentoDianteiro.setCellValueFactory(new PropertyValueFactory<>("rolamentoDianteiro"));
+		tableColumnRolamentoTraseiro.setCellValueFactory(new PropertyValueFactory<>("rolamentoTraseiro"));
+		tableColumnNameArea.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArea().getName()));	
+		tableColumnNameEquipamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEquipamento().getName()));	
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewMotor.prefHeightProperty().bind(stage.heightProperty());
 	}

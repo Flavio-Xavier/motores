@@ -30,13 +30,13 @@ public class MotorDaoJDBC implements MotorDao {
         try {
             st = conn.prepareStatement(
                 "INSERT INTO motor "
-                + "(Tensao, Corrente, PotenciaCv, Rotacao, Carcaca, FatorPotencia, FatorServico, Fabricante, CodigoSap, PotenciaWatts, GrauProtecao, Frequencia, RolamentoDianteiro, RolamentoTraseiro, AreaId, EquipamentoId) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                + "(Tensao, Corrente, Rotacao, Carcaca, FatorPotencia, FatorServico, Fabricante, CodigoSap, PotenciaWatts, GrauProtecao, Frequencia, RolamentoDianteiro, RolamentoTraseiro, id_area, id_equipamento) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS);
             
             st.setString(1, obj.getTensao());
             st.setString(2, obj.getCorrente());
-            st.setString(3, obj.getPotenciaCv());
+            //st.setString(3, obj.getPotenciaCv());
             st.setString(4, obj.getRotacao());
             st.setString(5, obj.getCarcaca());
             st.setString(6, obj.getFatorPotencia());
@@ -76,12 +76,12 @@ public class MotorDaoJDBC implements MotorDao {
         try {
             st = conn.prepareStatement(
                 "UPDATE motor "
-                + "SET Tensao = ?, Corrente = ?, PotenciaCv = ?, Rotacao = ?, Carcaca = ?, FatorPotencia = ?, FatorServico = ?, Fabricante = ?, CodigoSap = ?, PotenciaWatts = ?, GrauProtecao = ?, Frequencia = ?, RolamentoDianteiro = ?, RolamentoTraseiro = ?, AreaId = ?, EquipamentoId = ? "
+                + "SET Tensao = ?, Corrente = ?, Rotacao = ?, Carcaca = ?, FatorPotencia = ?, FatorServico = ?, Fabricante = ?, CodigoSap = ?, PotenciaWatts = ?, GrauProtecao = ?, Frequencia = ?, RolamentoDianteiro = ?, RolamentoTraseiro = ?, id_area = ?, id_equipamento = ? "
                 + "WHERE Id = ?");
             
             st.setString(1, obj.getTensao());
             st.setString(2, obj.getCorrente());
-            st.setString(3, obj.getPotenciaCv());
+            //st.setString(3, obj.getPotenciaCv());
             st.setString(4, obj.getRotacao());
             st.setString(5, obj.getCarcaca());
             st.setString(6, obj.getFatorPotencia());
@@ -129,8 +129,8 @@ public class MotorDaoJDBC implements MotorDao {
             st = conn.prepareStatement(
                 "SELECT motor.*, area.Name as AreaName, equipamento.Name as EquipamentoName "
                 + "FROM motor "
-                + "INNER JOIN area ON motor.AreaId = area.Id "
-                + "INNER JOIN equipamento ON motor.EquipamentoId = equipamento.Id "
+                + "INNER JOIN area ON motor.id_area = area.Id "
+                + "INNER JOIN equipamento ON motor.id_equipamento = equipamento.Id "
                 + "WHERE motor.Id = ?");
             
             st.setInt(1, id);
@@ -156,10 +156,10 @@ public class MotorDaoJDBC implements MotorDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                "SELECT motor.*, area.Name as AreaName, equipamento.Name as EquipamentoName "
+                "SELECT motor.*, area.Nome as AreaName, equipamento.Nome as EquipamentoName "
                 + "FROM motor "
-                + "INNER JOIN area ON motor.AreaId = area.Id "
-                + "INNER JOIN equipamento ON motor.EquipamentoId = equipamento.Id "
+                + "INNER JOIN area ON motor.id_area = area.Id "
+                + "INNER JOIN equipamento ON motor.id_equipamento = equipamento.Id "
                 + "ORDER BY motor.Fabricante");
             
             rs = st.executeQuery();
@@ -169,16 +169,16 @@ public class MotorDaoJDBC implements MotorDao {
             Map<Integer, Equipamento> equipamentoMap = new HashMap<>();
             
             while (rs.next()) {
-                Area area = areaMap.get(rs.getInt("AreaId"));
+                Area area = areaMap.get(rs.getInt("id_area"));
                 if (area == null) {
                     area = instantiateArea(rs);
-                    areaMap.put(rs.getInt("AreaId"), area);
+                    areaMap.put(rs.getInt("id_area"), area);
                 }
                 
-                Equipamento equipamento = equipamentoMap.get(rs.getInt("EquipamentoId"));
+                Equipamento equipamento = equipamentoMap.get(rs.getInt("id_equipamento"));
                 if (equipamento == null) {
                     equipamento = instantiateEquipamento(rs);
-                    equipamentoMap.put(rs.getInt("EquipamentoId"), equipamento);
+                    equipamentoMap.put(rs.getInt("id_equipamento"), equipamento);
                 }
                 
                 Motor obj = instantiateMotor(rs, area, equipamento);
@@ -198,18 +198,18 @@ public class MotorDaoJDBC implements MotorDao {
         obj.setId(rs.getInt("Id"));
         obj.setTensao(rs.getString("Tensao"));
         obj.setCorrente(rs.getString("Corrente"));
-        obj.setPotenciaCv(rs.getString("PotenciaCv"));
+        //obj.setPotenciaCv(rs.getString("Potencia_cv"));
         obj.setRotacao(rs.getString("Rotacao"));
         obj.setCarcaca(rs.getString("Carcaca"));
-        obj.setFatorPotencia(rs.getString("FatorPotencia"));
-        obj.setFatorServico(rs.getString("FatorServico"));
+        obj.setFatorPotencia(rs.getString("Fator_potencia"));
+        obj.setFatorServico(rs.getString("Fator_servico"));
         obj.setFabricante(rs.getString("Fabricante"));
-        obj.setCodigoSap(rs.getString("CodigoSap"));
-        obj.setPotenciaWatts(rs.getString("PotenciaWatts"));
-        obj.setGrauProtecao(rs.getString("GrauProtecao"));
+        obj.setCodigoSap(rs.getString("Codigo_sap"));
+        obj.setPotenciaWatts(rs.getString("Potencia_watts"));
+        obj.setGrauProtecao(rs.getString("Grau_protecao"));
         obj.setFrequencia(rs.getString("Frequencia"));
-        obj.setRolamentoDianteiro(rs.getString("RolamentoDianteiro"));
-        obj.setRolamentoTraseiro(rs.getString("RolamentoTraseiro"));
+        obj.setRolamentoDianteiro(rs.getString("Rolamento_dianteiro"));
+        obj.setRolamentoTraseiro(rs.getString("Rolamento_traseiro"));
         obj.setArea(area);
         obj.setEquipamento(equipamento);
         return obj;
@@ -217,14 +217,14 @@ public class MotorDaoJDBC implements MotorDao {
 
     private Area instantiateArea(ResultSet rs) throws SQLException {
         Area area = new Area();
-        area.setId(rs.getInt("AreaId"));
+        area.setId(rs.getInt("id_area"));
         area.setName(rs.getString("AreaName"));
         return area;
     }
 
     private Equipamento instantiateEquipamento(ResultSet rs) throws SQLException {
         Equipamento equipamento = new Equipamento();
-        equipamento.setId(rs.getInt("EquipamentoId"));
+        equipamento.setId(rs.getInt("id_equipamento"));
         equipamento.setName(rs.getString("EquipamentoName"));
         return equipamento;
     }
@@ -237,9 +237,9 @@ public class MotorDaoJDBC implements MotorDao {
             st = conn.prepareStatement(
                 "SELECT motor.*, area.Name as AreaName, equipamento.Name as EquipamentoName "
                 + "FROM motor "
-                + "INNER JOIN area ON motor.AreaId = area.Id "
-                + "INNER JOIN equipamento ON motor.EquipamentoId = equipamento.Id "
-                + "WHERE AreaId = ? "
+                + "INNER JOIN area ON motor.id_area = area.Id "
+                + "INNER JOIN equipamento ON motor.id_equipamento = equipamento.Id "
+                + "WHERE id_area = ? "
                 + "ORDER BY motor.Fabricante");
             
             st.setInt(1, area.getId());
@@ -250,16 +250,16 @@ public class MotorDaoJDBC implements MotorDao {
             Map<Integer, Equipamento> equipamentoMap = new HashMap<>();
             
             while (rs.next()) {
-                Area areaObj = areaMap.get(rs.getInt("AreaId"));
+                Area areaObj = areaMap.get(rs.getInt("id_area"));
                 if (areaObj == null) {
                     areaObj = instantiateArea(rs);
-                    areaMap.put(rs.getInt("AreaId"), areaObj);
+                    areaMap.put(rs.getInt("id_area"), areaObj);
                 }
                 
-                Equipamento equipamento = equipamentoMap.get(rs.getInt("EquipamentoId"));
+                Equipamento equipamento = equipamentoMap.get(rs.getInt("id_equipamento"));
                 if (equipamento == null) {
                     equipamento = instantiateEquipamento(rs);
-                    equipamentoMap.put(rs.getInt("EquipamentoId"), equipamento);
+                    equipamentoMap.put(rs.getInt("id_equipamento"), equipamento);
                 }
                 
                 Motor obj = instantiateMotor(rs, areaObj, equipamento);

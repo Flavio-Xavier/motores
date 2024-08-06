@@ -196,8 +196,8 @@ public class EquipamentoDaoJDBC implements EquipamentoDao {
 
     private Area instantiateArea(ResultSet rs) throws SQLException {
         Area area = new Area();
-        area.setId(rs.getInt("id"));
-        area.setName(rs.getString("Nome"));
+        area.setId(rs.getInt("id_area"));
+        area.setName(rs.getString("AreaName"));
         return area;
     }
 }

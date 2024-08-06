@@ -24,8 +24,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.entities.Area;
 import model.entities.Equipamento;
 import model.services.EquipamentoService;
+import javafx.beans.property.SimpleStringProperty;
 
 public class EquipamentoListController implements Initializable, DataChangeListener {
 
@@ -39,6 +41,9 @@ public class EquipamentoListController implements Initializable, DataChangeListe
 
 	@FXML
 	private TableColumn<Equipamento, String> tableColumnName;
+	
+	@FXML
+	private TableColumn<Equipamento, String> tableColumnNameArea;
 
 	@FXML
 	private TableColumn<Equipamento, Equipamento> tableColumnEDIT;
@@ -70,6 +75,7 @@ public class EquipamentoListController implements Initializable, DataChangeListe
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tableColumnNameArea.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArea().getName()));		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewEquipamento.prefHeightProperty().bind(stage.heightProperty());
 	}

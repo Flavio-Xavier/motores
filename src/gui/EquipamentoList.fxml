@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="375.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EquipamentoListController">
+<VBox prefHeight="375.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EquipamentoListController">
    <children>
       <Label prefHeight="25.0" prefWidth="192.0" text="Cadastro dos Equipamentos">
          <padding>
@@ -27,9 +27,10 @@
       <TableView fx:id="tableViewEquipamento" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tableColumnName" prefWidth="284.0" text="Nome" />
-            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="73.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
+          <TableColumn fx:id="tableColumnName" prefWidth="229.0" text="Nome" />
+            <TableColumn fx:id="tableColumnNameArea" prefWidth="162.0" text="Area" />
+            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="61.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="81.0" />
         </columns>
       </TableView>
    </children>

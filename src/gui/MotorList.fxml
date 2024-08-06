@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="375.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MotorListController">
+<VBox prefHeight="484.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MotorListController">
    <children>
-      <Label prefHeight="25.0" prefWidth="133.0" text="Cadastro dos Motor">
+      <Label prefHeight="25.0" prefWidth="150.0" text="Cadastro dos Motor">
          <padding>
             <Insets left="5.0" top="5.0" />
          </padding>
@@ -24,12 +24,26 @@
           <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="New" />
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewMotor" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewMotor" prefHeight="200.0" prefWidth="751.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tableColumnName" prefWidth="284.0" text="Nome" />
-            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="73.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
+          <TableColumn fx:id="tableColumnId" prefWidth="50.0" text="Id" />
+          <TableColumn fx:id="tableColumnTensao" prefWidth="50.0" text="Tensao" />
+            <TableColumn fx:id="tableColumnCorrente" prefWidth="60.0" text="Corrente" />
+            <TableColumn fx:id="tableColumnRotacao" prefWidth="55.0" text="Rotação" />
+            <TableColumn fx:id="tableColumnCarcaca" prefWidth="55.0" text="Carcaça" />
+            <TableColumn fx:id="tableColumnFatorPotencia" prefWidth="87.0" text="Fator Potência" />
+            <TableColumn fx:id="tableColumnFatorServico" text="Fator Serviço" />
+            <TableColumn fx:id="tableColumnFabricante" prefWidth="66.0" text="Fabricante" />
+            <TableColumn fx:id="tableColumnCodigoSap" prefWidth="75.0" text="Código SAP" />
+            <TableColumn fx:id="tableColumnPotenciaWatts" prefWidth="60.0" text="Potência" />
+            <TableColumn fx:id="tableColumnGrauProtecao" text="Grau de &#10;Proteção" />
+            <TableColumn fx:id="tableColumnFrequencia" prefWidth="70.0" text="Frequência" />
+            <TableColumn fx:id="tableColumnRolamentoDianteiro" text="Rolamento &#10;Dianteiro" />
+            <TableColumn fx:id="tableColumnRolamentoTraseiro" text="Rolamento &#10;Traseiro" />
+            <TableColumn fx:id="tableColumnNameEquipamento" prefWidth="90.0" text="Equipamento" />
+            <TableColumn fx:id="tableColumnNameArea" prefWidth="75.0" text="Area" />
+            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="50.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="65.0" />
         </columns>
       </TableView>
    </children>
