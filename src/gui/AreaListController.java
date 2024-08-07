@@ -75,6 +75,7 @@ public class AreaListController implements Initializable, DataChangeListener {
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		Utils.formatTableColumnToUpperCase(tableColumnName);
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewArea.prefHeightProperty().bind(stage.heightProperty());
 	}
@@ -109,6 +110,7 @@ public class AreaListController implements Initializable, DataChangeListener {
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}

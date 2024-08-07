@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Utils {
@@ -60,5 +61,53 @@ public class Utils {
 			return cell;
 		});
 	}
+	
+	public static <T> void formatTableColumnStringAsNumber(TableColumn<T, String> tableColumn, int decimalPlaces) {
+        tableColumn.setCellFactory(column -> {
+            TableCell<T, String> cell = new TableCell<T, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        try {
+                            double number = Double.parseDouble(item);
+                            Locale.setDefault(Locale.US);
+                            setText(String.format("%." + decimalPlaces + "f", number));
+                        } catch (NumberFormatException e) {
+                            setText(item);
+                        }
+                    }
+                }
+            };
+            return cell;
+        });
+    }
+	
+	public static <T> void formatTableColumnToUpperCase(TableColumn<T, String> tableColumn) {
+        tableColumn.setCellFactory(column -> {
+            TableCell<T, String> cell = new TableCell<T, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.toUpperCase());
+                    }
+                }
+            };
+            return cell;
+        });
+    }
+	
+	public static void setNumericTextField(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
 
 }

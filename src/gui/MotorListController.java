@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -24,8 +27,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Motor;
+import model.services.AreaService;
+import model.services.EquipamentoService;
 import model.services.MotorService;
 
 public class MotorListController implements Initializable, DataChangeListener {
@@ -117,20 +124,27 @@ public class MotorListController implements Initializable, DataChangeListener {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnTensao.setCellValueFactory(new PropertyValueFactory<>("tensao"));
 		tableColumnCorrente.setCellValueFactory(new PropertyValueFactory<>("corrente"));
-		//tableColumnPotenciaCv.setCellValueFactory(new PropertyValueFactory<>("potenciaCv"));
 		tableColumnRotacao.setCellValueFactory(new PropertyValueFactory<>("rotacao"));
 		tableColumnCarcaca.setCellValueFactory(new PropertyValueFactory<>("carcaca"));
+		Utils.formatTableColumnToUpperCase(tableColumnCarcaca);
 		tableColumnFatorPotencia.setCellValueFactory(new PropertyValueFactory<>("fatorPotencia"));
+		Utils.formatTableColumnStringAsNumber(tableColumnFatorPotencia, 2);
 		tableColumnFatorServico.setCellValueFactory(new PropertyValueFactory<>("fatorServico"));
+		Utils.formatTableColumnStringAsNumber(tableColumnFatorServico, 2);
 		tableColumnFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+		Utils.formatTableColumnToUpperCase(tableColumnFabricante);
 		tableColumnCodigoSap.setCellValueFactory(new PropertyValueFactory<>("codigoSap"));
 		tableColumnPotenciaWatts.setCellValueFactory(new PropertyValueFactory<>("potenciaWatts"));
+		Utils.formatTableColumnToUpperCase(tableColumnPotenciaWatts);
 		tableColumnGrauProtecao.setCellValueFactory(new PropertyValueFactory<>("grauProtecao"));
+		Utils.formatTableColumnToUpperCase(tableColumnGrauProtecao);
 		tableColumnFrequencia.setCellValueFactory(new PropertyValueFactory<>("frequencia"));
 		tableColumnRolamentoDianteiro.setCellValueFactory(new PropertyValueFactory<>("rolamentoDianteiro"));
 		tableColumnRolamentoTraseiro.setCellValueFactory(new PropertyValueFactory<>("rolamentoTraseiro"));
 		tableColumnNameArea.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArea().getName()));	
+		Utils.formatTableColumnToUpperCase(tableColumnNameArea);
 		tableColumnNameEquipamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEquipamento().getName()));	
+		Utils.formatTableColumnToUpperCase(tableColumnNameEquipamento);
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewMotor.prefHeightProperty().bind(stage.heightProperty());
 	}
@@ -147,26 +161,28 @@ public class MotorListController implements Initializable, DataChangeListener {
 	}
 
 	private void createDialogForm(Motor obj, String absoluteName, Stage parentStage) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//			Pane pane = loader.load();
-//			MotorFormController controller = loader.getController();
-//			controller.setMotor(obj);
-//			controller.setMotorService(new MotorService());
-//			controller.subscribeDataChangeListener(this);
-//			controller.updatFormData();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Informe o nome da Área");
-//			dialogStage.setScene(new Scene(pane));
-//			dialogStage.setResizable(false);
-//			dialogStage.initOwner(parentStage);
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.showAndWait();
-//
-//		} catch (IOException e) {
-//			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-//		}
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+			MotorFormController controller = loader.getController();
+			controller.setMotor(obj);
+			controller.setServices(new MotorService(), new AreaService(), new EquipamentoService());
+			controller.loadAssociatedObjects();
+			controller.subscribeDataChangeListener(this);
+			controller.updatFormData();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Informe os dados do motor");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
 	}
 
 	@Override

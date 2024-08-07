@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.dao.EquipamentoDao;
 import model.dao.DaoFactory;
+import model.entities.Area;
 import model.entities.Equipamento;
 
 public class EquipamentoService {
@@ -14,6 +15,10 @@ public class EquipamentoService {
 	public List<Equipamento> findAll() {
 		return dao.findAll();
 	}
+	
+	public List<Equipamento> findByArea(Area area) {
+        return dao.findByArea(area);
+    }
 	
 	public void saveOrUpdate(Equipamento obj) {
 		if (obj.getId() == null) {
