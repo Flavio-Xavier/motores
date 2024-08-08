@@ -45,7 +45,7 @@ public class MotorFormController implements Initializable{
 	private TextField txtId;
 	
 	@FXML
-	private TextField txtTensao;
+	private ComboBox<String> comboBoxTensao;
 	
 	@FXML
 	private TextField txtCorrente;
@@ -90,7 +90,25 @@ public class MotorFormController implements Initializable{
 	private ComboBox<Area> comboBoxArea;
 	
 	@FXML
-	private Label labelErrorName;
+	private Label labelErrorTensao;
+	
+	@FXML
+	private Label labelErrorCorrente;
+	
+	@FXML
+	private Label labelErrorPotencia;
+	
+	@FXML
+	private Label labelErrorRotacao;
+	
+	@FXML
+	private Label labelErrorFabricante;
+	
+	@FXML
+	private Label labelErrorArea;
+	
+	@FXML
+	private Label labelErrorEquipamento;
 	
 	@FXML
 	private Button btSave;
@@ -149,10 +167,42 @@ public class MotorFormController implements Initializable{
 		ValidationException exception = new ValidationException("Validation error");
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 		
-		if (txtTensao.getText() == null || txtTensao.getText().trim().equals("")) {
+		if (comboBoxTensao.getValue() == null) {
 			exception.addError("tensao", "O campo não pode ser vazio!");
 		}
-		obj.setTensao(txtTensao.getText());
+		obj.setTensao(comboBoxTensao.getValue());
+		if (txtCorrente.getText() == null || txtCorrente.getText().trim().equals("")) {
+			exception.addError("corrente", "O campo não pode ser vazio!");
+		}
+		obj.setCorrente(txtCorrente.getText());
+		if (txtRotacao.getText() == null || txtRotacao.getText().trim().equals("")) {
+			exception.addError("rotacao", "O campo não pode ser vazio!");
+		}
+		obj.setRotacao(txtRotacao.getText());
+		obj.setCarcaca(txtCarcaca.getText());
+		obj.setFatorPotencia(txtFatorPotencia.getText());
+		obj.setFatorServico(txtFatorServico.getText());
+		if (txtFabricante.getText() == null || txtFabricante.getText().trim().equals("")) {
+			exception.addError("fabricante", "O campo não pode ser vazio!");
+		}
+		obj.setFabricante(txtFabricante.getText());
+		obj.setCodigoSap(txtCodigoSap.getText());
+		if (txtPotencia.getText() == null || txtPotencia.getText().trim().equals("")) {
+			exception.addError("potencia", "O campo não pode ser vazio!");
+		}
+		obj.setPotenciaWatts(txtPotencia.getText());
+		obj.setGrauProtecao(txtGrauProtecao.getText());
+		obj.setFrequencia(txtFrequencia.getText());
+		obj.setRolamentoDianteiro(txtRolamentoDianteiro.getText());
+		obj.setRolamentoTraseiro(txtRolamentoTraseiro.getText());
+		if (comboBoxArea.getValue() == null) {
+			exception.addError("area", "O campo não pode ser vazio!");
+		}
+		obj.setEquipamento(comboBoxEquipamento.getValue());
+		if (comboBoxEquipamento.getValue() == null) {
+			exception.addError("equipamento", "O campo não pode ser vazio!");
+		}
+		obj.setArea(comboBoxArea.getValue());
 		
 		if (exception.getErros().size() > 0) {
 			throw exception;
@@ -168,60 +218,123 @@ public class MotorFormController implements Initializable{
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
-		//applyNumericFilters();
+		applyNumericFilters();
 	}
 	
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtTensao, 50);
+		initializeComboBoxTensao();
 		initializeComboBoxArea();
 	    initializeComboBoxEquipamento();
 	}
 	
-//	private void applyNumericFilters() {
-//        Utils.setNumericTextField(txtName);
-//	}
+	private void applyNumericFilters() {
+        Utils.setNumericTextField(txtRotacao);
+        Utils.setNumericTextField(txtPotencia);
+        Utils.setNumericTextField(txtFrequencia);
+        Utils.setDecimalTextField(txtCorrente);
+        Utils.setDecimalTextField(txtFatorPotencia);
+        Utils.setDecimalTextField(txtFatorServico);
+	}
 	
 	public void updatFormData() {
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		txtId.setText(String.valueOf(entity.getId()));
-		if(entity.getEquipamento() == null) {
-			comboBoxEquipamento.getSelectionModel().selectFirst();
-		}else {
-			comboBoxEquipamento.setValue(entity.getEquipamento());
-		}
+		txtId.setText(entity.getId() == null ? "" : String.valueOf(entity.getId()));
+	    comboBoxTensao.setValue(entity.getTensao());
+	    txtCorrente.setText(entity.getCorrente() == null ? "" : entity.getCorrente());
+	    txtRotacao.setText(entity.getRotacao() == null ? "" : entity.getRotacao());
+	    txtCarcaca.setText(entity.getCarcaca() == null ? "" : entity.getCarcaca());
+	    txtFatorPotencia.setText(entity.getFatorPotencia() == null ? "" : entity.getFatorPotencia());
+	    txtFatorServico.setText(entity.getFatorServico() == null ? "" : entity.getFatorServico());
+	    txtFabricante.setText(entity.getFabricante() == null ? "" : entity.getFabricante());
+	    txtCodigoSap.setText(entity.getCodigoSap() == null ? "" : entity.getCodigoSap());
+	    txtPotencia.setText(entity.getPotenciaWatts() == null ? "" : entity.getPotenciaWatts());
+	    txtGrauProtecao.setText(entity.getGrauProtecao() == null ? "" : entity.getGrauProtecao());
+	    txtFrequencia.setText(entity.getFrequencia() == null ? "" : entity.getFrequencia());
+	    txtRolamentoDianteiro.setText(entity.getRolamentoDianteiro() == null ? "" : entity.getRolamentoDianteiro());
+	    txtRolamentoTraseiro.setText(entity.getRolamentoTraseiro() == null ? "" : entity.getRolamentoTraseiro());
+	    
 		if(entity.getArea() == null) {
 			comboBoxArea.getSelectionModel().selectFirst();
 		}else {
 			comboBoxArea.setValue(entity.getArea());
 		}
+		if(entity.getEquipamento() == null) {
+			comboBoxEquipamento.getSelectionModel().selectFirst();
+		}else {
+			comboBoxEquipamento.setValue(entity.getEquipamento());
+		}
+		
 		
 	}
+
 	
-	public void loadAssociatedObjects() {
-	    if (areaService == null) {
-	        throw new IllegalStateException("AreaService was null");
+	public void loadAssociatedObjects(boolean isEdit) {
+	    if (areaService == null || equipamentoService == null) {
+	        throw new IllegalStateException("Services were null");
 	    }
+
 	    List<Area> list = areaService.findAll();
 	    obsListArea = FXCollections.observableArrayList(list);
+	    obsListArea.add(0, null);
 	    comboBoxArea.setItems(obsListArea);
+		comboBoxArea.getSelectionModel().selectFirst();
+
+	    if (isEdit && entity.getArea() != null) {
+	        loadEquipamentosByArea(entity.getArea());
+	    }
 	}
+
 	
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
-		if(fields.contains("nome")) {
-			labelErrorName.setText(errors.get("tensao"));
-		}
+		labelErrorTensao.setText(fields.contains("tensao") ? errors.get("tensao") : "");
+		labelErrorCorrente.setText(fields.contains("corrente") ? errors.get("corrente") : "");
+		labelErrorPotencia.setText(fields.contains("potencia") ? errors.get("potencia") : "");
+		labelErrorFabricante.setText(fields.contains("fabricante") ? errors.get("fabricante") : "");
+		labelErrorRotacao.setText(fields.contains("rotacao") ? errors.get("rotacao") : "");
+		labelErrorArea.setText(fields.contains("area") ? errors.get("area") : "");
+		labelErrorEquipamento.setText(fields.contains("equipamento") ? errors.get("equipamento") : "");
 	}
+	
+	private void loadTensaoOptions() {
+        ObservableList<String> tensaoOptions = FXCollections.observableArrayList(
+            null, "220", "380", "440","760", "220/380","220/440","440/760" ,"220/380/440/760"
+        );
+        comboBoxTensao.setItems(tensaoOptions);
+        comboBoxTensao.getSelectionModel().selectFirst();
+    }
+	
+	private void initializeComboBoxTensao() {
+        loadTensaoOptions();
+
+        Callback<ListView<String>, ListCell<String>> factory = lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+	                setText("Selecione uma tensão");
+	            } else {
+	                setText(item);
+	            }
+            }
+        };
+        comboBoxTensao.setCellFactory(factory);
+        comboBoxTensao.setButtonCell(factory.call(null));
+    }
 	
 	private void initializeComboBoxArea() {
 	    Callback<ListView<Area>, ListCell<Area>> factory = lv -> new ListCell<Area>() {
 	        @Override
 	        protected void updateItem(Area item, boolean empty) {
 	            super.updateItem(item, empty);
-	            setText(empty ? "" : item.getName());
+	            if (item == null || empty) {
+	                setText("Selecione uma área");
+	            } else {
+	                setText(item.getName());
+	            }
 	        }
 	    };
 	    comboBoxArea.setCellFactory(factory);
@@ -240,20 +353,31 @@ public class MotorFormController implements Initializable{
 	        throw new IllegalStateException("EquipamentoService was null");
 	    }
 	    List<Equipamento> listEquipamento = equipamentoService.findByArea(area);
+
+	    Equipamento selectItem = new Equipamento();
+	    selectItem.setName("Selecione um equipamento");
+	    listEquipamento.add(0, selectItem);
+
 	    obsListEquipamento = FXCollections.observableArrayList(listEquipamento);
 	    comboBoxEquipamento.setItems(obsListEquipamento);
+	    
+	    comboBoxEquipamento.getSelectionModel().selectFirst();
 	}
-
 
 	private void initializeComboBoxEquipamento() {
 	    Callback<ListView<Equipamento>, ListCell<Equipamento>> factory = lv -> new ListCell<Equipamento>() {
 	        @Override
 	        protected void updateItem(Equipamento item, boolean empty) {
 	            super.updateItem(item, empty);
-	            setText(empty ? "" : item.getName());
+	            if (item == null || empty) {
+	                setText("");
+	            } else {
+	                setText(item.getName());
+	            }
 	        }
 	    };
 	    comboBoxEquipamento.setCellFactory(factory);
 	    comboBoxEquipamento.setButtonCell(factory.call(null));
 	}
+
 }

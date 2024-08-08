@@ -49,6 +49,9 @@ public class EquipamentoFormController implements Initializable {
 
 	@FXML
 	private Label labelErrorName;
+	
+	@FXML
+	private Label labelErrorArea;
 
 	@FXML
 	private Button btSave;
@@ -106,6 +109,10 @@ public class EquipamentoFormController implements Initializable {
 			exception.addError("nome", "O campo não pode ser vazio!");
 		}
 		obj.setName(txtName.getText());
+		
+		if (comboBoxArea.getValue() == null) {
+			exception.addError("area", "O campo não pode ser vazio!");
+		}
 		obj.setArea(comboBoxArea.getValue());
 
 		if (exception.getErros().size() > 0) {
@@ -155,14 +162,15 @@ public class EquipamentoFormController implements Initializable {
 		}
 		List<Area> list = areaService.findAll();
 		obsList = FXCollections.observableArrayList(list);
+		obsList.add(0, null);
 		comboBoxArea.setItems(obsList);
+		comboBoxArea.getSelectionModel().selectFirst();
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
-		if (fields.contains("nome")) {
-			labelErrorName.setText(errors.get("nome"));
-		}
+		labelErrorName.setText(fields.contains("nome") ? errors.get("nome") : "");
+		labelErrorArea.setText(fields.contains("area") ? errors.get("area") : "");
 	}
 
 	private void initializeComboBoxArea() {
@@ -170,7 +178,11 @@ public class EquipamentoFormController implements Initializable {
 			@Override
 			protected void updateItem(Area item, boolean empty) {
 				super.updateItem(item, empty);
-				setText(empty ? "" : item.getName());
+				if (item == null || empty) {
+	                setText("Selecione uma área");
+	            } else {
+	                setText(item.getName());
+	            }
 			}
 		};
 		comboBoxArea.setCellFactory(factory);

@@ -9,7 +9,7 @@ public class Motor implements Serializable {
 	private Integer id;
 	private String tensao; 
 	private String corrente; 
-	private String potenciaCv; 
+	//private String potenciaCv; 
 	private String rotacao;
 	private String carcaca; 
 	private String fatorPotencia; 
@@ -30,14 +30,14 @@ public class Motor implements Serializable {
 	
 	
 
-	public Motor(Integer id, String tensao, String corrente, String potenciaCv, String rotacao, String carcaca,
+	public Motor(Integer id, String tensao, String corrente, /*String potenciaCv,*/ String rotacao, String carcaca,
 			String fatorPotencia, String fatorServico, String fabricante, String codigoSap, String potenciaWatts,
 			String grauProtecao, String frequencia, String rolamentoDianteiro, String rolamentoTraseiro, Area area,
 			Equipamento equipamento) {
 		this.id = id;
 		this.tensao = tensao;
 		this.corrente = corrente;
-		this.potenciaCv = potenciaCv;
+		//this.potenciaCv = potenciaCv;
 		this.rotacao = rotacao;
 		this.carcaca = carcaca;
 		this.fatorPotencia = fatorPotencia;
@@ -79,13 +79,13 @@ public class Motor implements Serializable {
 		this.corrente = corrente;
 	}
 
-	public String getPotenciaCv() {
-		return potenciaCv;
-	}
-
-	public void setPotenciaCv(String potenciaCv) {
-		this.potenciaCv = potenciaCv;
-	}
+//	public String getPotenciaCv() {
+//		return potenciaCv;
+//	}
+//
+//	public void setPotenciaCv(String potenciaCv) {
+//		this.potenciaCv = potenciaCv;
+//	}
 
 	public String getRotacao() {
 		return rotacao;
@@ -221,8 +221,8 @@ public class Motor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Motor [id=" + id + ", tensao=" + tensao + ", corrente=" + corrente + ", potenciaCv=" + potenciaCv
-				+ ", rotacao=" + rotacao + ", carcaca=" + carcaca + ", fatorPotencia=" + fatorPotencia
+		return "Motor [id=" + id + ", tensao=" + tensao + ", corrente=" + corrente +/* ", potenciaCv=" + potenciaCv
+				+*/ ", rotacao=" + rotacao + ", carcaca=" + carcaca + ", fatorPotencia=" + fatorPotencia
 				+ ", fatorServico=" + fatorServico + ", fabricante=" + fabricante + ", codigoSap=" + codigoSap
 				+ ", potenciaWatts=" + potenciaWatts + ", grauProtecao=" + grauProtecao + ", frequencia=" + frequencia
 				+ ", rolamentoDianteiro=" + rolamentoDianteiro + ", rolamentoTraseiro=" + rolamentoTraseiro + ", area="

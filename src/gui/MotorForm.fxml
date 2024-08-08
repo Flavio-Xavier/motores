@@ -37,8 +37,6 @@
             <Label text="Id" />
             <Label text="Tensão" GridPane.rowIndex="1" />
             <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
-            <TextField fx:id="txtTensao" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="labelErrorName" textFill="#ff0202" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
@@ -76,6 +74,14 @@
             <ComboBox fx:id="comboBoxArea" prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
             <ComboBox fx:id="comboBoxEquipamento" prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
             <Label text="Equipamento" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <ComboBox fx:id="comboBoxTensao" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorTensao" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorCorrente" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorRotacao" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="labelErrorFabricante" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label fx:id="labelErrorArea" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <Label fx:id="labelErrorEquipamento" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <Label fx:id="labelErrorPotencia" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

@@ -109,5 +109,13 @@ public class Utils {
             }
         });
     }
+	
+	public static void setDecimalTextField(TextField textField) {
+	    textField.textProperty().addListener((observable, oldValue, newValue) -> {
+	        if (!newValue.matches("\\d*([,.]\\d*)?")) {
+	            textField.setText(oldValue);
+	        }
+	    });
+	}
 
 }

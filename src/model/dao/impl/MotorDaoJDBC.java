@@ -30,26 +30,26 @@ public class MotorDaoJDBC implements MotorDao {
         try {
             st = conn.prepareStatement(
                 "INSERT INTO motor "
-                + "(Tensao, Corrente, Rotacao, Carcaca, FatorPotencia, FatorServico, Fabricante, CodigoSap, PotenciaWatts, GrauProtecao, Frequencia, RolamentoDianteiro, RolamentoTraseiro, id_area, id_equipamento) "
+                + "(Tensao, Corrente, Rotacao, Carcaca, Fator_Potencia, Fator_Servico, Fabricante, Codigo_Sap, Potencia_Watts, Grau_Protecao, Frequencia, Rolamento_Dianteiro, Rolamento_Traseiro, id_area, id_equipamento) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS);
             
             st.setString(1, obj.getTensao());
             st.setString(2, obj.getCorrente());
             //st.setString(3, obj.getPotenciaCv());
-            st.setString(4, obj.getRotacao());
-            st.setString(5, obj.getCarcaca());
-            st.setString(6, obj.getFatorPotencia());
-            st.setString(7, obj.getFatorServico());
-            st.setString(8, obj.getFabricante());
-            st.setString(9, obj.getCodigoSap());
-            st.setString(10, obj.getPotenciaWatts());
-            st.setString(11, obj.getGrauProtecao());
-            st.setString(12, obj.getFrequencia());
-            st.setString(13, obj.getRolamentoDianteiro());
-            st.setString(14, obj.getRolamentoTraseiro());
-            st.setInt(15, obj.getArea().getId());
-            st.setInt(16, obj.getEquipamento().getId());
+            st.setString(3, obj.getRotacao());
+            st.setString(4, obj.getCarcaca());
+            st.setString(5, obj.getFatorPotencia());
+            st.setString(6, obj.getFatorServico());
+            st.setString(7, obj.getFabricante());
+            st.setString(8, obj.getCodigoSap());
+            st.setString(9, obj.getPotenciaWatts());
+            st.setString(10, obj.getGrauProtecao());
+            st.setString(11, obj.getFrequencia());
+            st.setString(12, obj.getRolamentoDianteiro());
+            st.setString(13, obj.getRolamentoTraseiro());
+            st.setInt(14, obj.getArea().getId());
+            st.setInt(15, obj.getEquipamento().getId());
             
             int rowsAffected = st.executeUpdate();
             
@@ -76,26 +76,26 @@ public class MotorDaoJDBC implements MotorDao {
         try {
             st = conn.prepareStatement(
                 "UPDATE motor "
-                + "SET Tensao = ?, Corrente = ?, Rotacao = ?, Carcaca = ?, FatorPotencia = ?, FatorServico = ?, Fabricante = ?, CodigoSap = ?, PotenciaWatts = ?, GrauProtecao = ?, Frequencia = ?, RolamentoDianteiro = ?, RolamentoTraseiro = ?, id_area = ?, id_equipamento = ? "
+                + "SET Tensao = ?, Corrente = ?, Rotacao = ?, Carcaca = ?, Fator_Potencia = ?, Fator_Servico = ?, Fabricante = ?, Codigo_Sap = ?, Potencia_Watts = ?, Grau_Protecao = ?, Frequencia = ?, Rolamento_Dianteiro = ?, Rolamento_Traseiro = ?, id_area = ?, id_equipamento = ? "
                 + "WHERE Id = ?");
             
             st.setString(1, obj.getTensao());
             st.setString(2, obj.getCorrente());
             //st.setString(3, obj.getPotenciaCv());
-            st.setString(4, obj.getRotacao());
-            st.setString(5, obj.getCarcaca());
-            st.setString(6, obj.getFatorPotencia());
-            st.setString(7, obj.getFatorServico());
-            st.setString(8, obj.getFabricante());
-            st.setString(9, obj.getCodigoSap());
-            st.setString(10, obj.getPotenciaWatts());
-            st.setString(11, obj.getGrauProtecao());
-            st.setString(12, obj.getFrequencia());
-            st.setString(13, obj.getRolamentoDianteiro());
-            st.setString(14, obj.getRolamentoTraseiro());
-            st.setInt(15, obj.getArea().getId());
-            st.setInt(16, obj.getEquipamento().getId());
-            st.setInt(17, obj.getId());
+            st.setString(3, obj.getRotacao());
+            st.setString(4, obj.getCarcaca());
+            st.setString(5, obj.getFatorPotencia());
+            st.setString(6, obj.getFatorServico());
+            st.setString(7, obj.getFabricante());
+            st.setString(8, obj.getCodigoSap());
+            st.setString(9, obj.getPotenciaWatts());
+            st.setString(10, obj.getGrauProtecao());
+            st.setString(11, obj.getFrequencia());
+            st.setString(12, obj.getRolamentoDianteiro());
+            st.setString(13, obj.getRolamentoTraseiro());
+            st.setInt(14, obj.getArea().getId());
+            st.setInt(15, obj.getEquipamento().getId());
+            st.setInt(16, obj.getId());
             
             st.executeUpdate();
         } catch (SQLException e) {

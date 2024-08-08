@@ -167,7 +167,9 @@ public class MotorListController implements Initializable, DataChangeListener {
 			MotorFormController controller = loader.getController();
 			controller.setMotor(obj);
 			controller.setServices(new MotorService(), new AreaService(), new EquipamentoService());
-			controller.loadAssociatedObjects();
+			boolean isEdit = obj.getId() != null;
+	        controller.loadAssociatedObjects(isEdit);
+			//controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updatFormData();
 
