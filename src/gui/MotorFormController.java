@@ -200,23 +200,6 @@ public class MotorFormController implements Initializable{
 		
 	}
 	
-//	public void loadAssociatedObjects() {
-//		if (areaService == null) {
-//			throw new IllegalStateException("AreaService was null");
-//		}
-//		List<Area> list = areaService.findAll();
-//		obsListArea = FXCollections.observableArrayList(list);
-//		comboBoxArea.setItems(obsListArea);
-//		
-//		if (equipamentoService == null) {
-//			throw new IllegalStateException("EquipamentoService was null");
-//		}
-//		List<Equipamento> listEquipamento = equipamentoService.findAll();
-//		obsListEquipamento = FXCollections.observableArrayList(listEquipamento);
-//		comboBoxEquipamento.setItems(obsListEquipamento);
-//		
-//	}
-	
 	public void loadAssociatedObjects() {
 	    if (areaService == null) {
 	        throw new IllegalStateException("AreaService was null");
@@ -225,26 +208,6 @@ public class MotorFormController implements Initializable{
 	    obsListArea = FXCollections.observableArrayList(list);
 	    comboBoxArea.setItems(obsListArea);
 	}
-
-	
-//	public void loadAssociatedObjects() {
-//	    if (areaService == null) {
-//	        throw new IllegalStateException("AreaService was null");
-//	    }
-//	    List<Area> list = areaService.findAll();
-//	    obsListArea = FXCollections.observableArrayList(list);
-//	    comboBoxArea.setItems(obsListArea);
-//	    
-//	    comboBoxArea.setOnAction(event -> {
-//	        Area selectedArea = comboBoxArea.getSelectionModel().getSelectedItem();
-//	        if (selectedArea != null) {
-//	            List<Equipamento> listEquipamento = equipamentoService.findByArea(selectedArea);
-//	            obsListEquipamento = FXCollections.observableArrayList(listEquipamento);
-//	            comboBoxEquipamento.setItems(obsListEquipamento);
-//	        }
-//	    });
-//	}
-
 	
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();

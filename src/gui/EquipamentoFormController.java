@@ -106,6 +106,7 @@ public class EquipamentoFormController implements Initializable {
 			exception.addError("nome", "O campo não pode ser vazio!");
 		}
 		obj.setName(txtName.getText());
+		obj.setArea(comboBoxArea.getValue());
 
 		if (exception.getErros().size() > 0) {
 			throw exception;
