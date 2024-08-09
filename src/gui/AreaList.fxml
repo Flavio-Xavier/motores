@@ -26,10 +26,10 @@
       </ToolBar>
       <TableView fx:id="tableViewArea" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tableColumnName" prefWidth="284.0" text="Nome" />
-            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="73.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
+          <TableColumn fx:id="tableColumnId" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Id" />
+          <TableColumn fx:id="tableColumnName" prefWidth="284.0" style="-fx-alignment: CENTER;" text="Nome" />
+            <TableColumn fx:id="tableColumnEDIT" minWidth="0.0" prefWidth="73.0" style="-fx-alignment: CENTER;" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" style="-fx-alignment: CENTER;" />
         </columns>
       </TableView>
    </children>

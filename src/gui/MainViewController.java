@@ -32,6 +32,9 @@ public class MainViewController implements Initializable{
 	private MenuItem menuItemMotor;
 	
 	@FXML
+	private MenuItem menuItemSearchMotor;
+	
+	@FXML
 	private MenuItem menuItemAbout;
 	
 	@FXML
@@ -56,6 +59,14 @@ public class MainViewController implements Initializable{
 			controller.setMotorService(new MotorService());
 			controller.updateTableView();
 		});
+	}
+	
+	@FXML
+	public void onMenuItemMotorSearchAction() {
+	    loadView("/gui/MotorSearchList.fxml", (MotorSearchController controller) -> {
+	        controller.setMotorService(new MotorService());
+	        controller.updateTableView();
+	    });
 	}
 	
 	@FXML
