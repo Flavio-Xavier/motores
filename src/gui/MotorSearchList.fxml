@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="484.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MotorSearchController">
+<VBox prefHeight="484.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MotorSearchListController">
    <children>
       <Label prefHeight="25.0" prefWidth="201.0" text="Tela de Pesquisa dos Motores">
          <padding>
@@ -21,7 +21,7 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="Search" />
+          <Button fx:id="btSearch" mnemonicParsing="false" onAction="#onBtSearchAction" text="Search" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewMotor" prefHeight="200.0" prefWidth="751.0">

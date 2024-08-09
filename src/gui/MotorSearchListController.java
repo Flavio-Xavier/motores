@@ -35,7 +35,7 @@ import model.services.AreaService;
 import model.services.EquipamentoService;
 import model.services.MotorService;
 
-public class MotorSearchController implements Initializable, DataChangeListener {
+public class MotorSearchListController implements Initializable, DataChangeListener {
 
 	private MotorService service;
 
@@ -105,7 +105,7 @@ public class MotorSearchController implements Initializable, DataChangeListener 
 	private ObservableList<Motor> obsList;
 
 	@FXML
-	public void onBtNewAction(ActionEvent event) {
+	public void onBtSearchAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Motor obj = new Motor();
 		createDialogForm(obj, "/gui/MotorSearchForm.fxml", parentStage);
@@ -164,17 +164,16 @@ public class MotorSearchController implements Initializable, DataChangeListener 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			MotorFormController controller = loader.getController();
+			MotorSearchFormController controller = loader.getController();
 			controller.setMotor(obj);
 			controller.setServices(new MotorService(), new AreaService(), new EquipamentoService());
 			boolean isEdit = obj.getId() != null;
 	        controller.loadAssociatedObjects(isEdit);
-			//controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
-			controller.updatFormData();
+			//controller.updatFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Informe os dados do motor");
+			dialogStage.setTitle("Informe os campos necessários para a pesquisa");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);

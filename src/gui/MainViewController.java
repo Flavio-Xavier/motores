@@ -63,7 +63,7 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void onMenuItemMotorSearchAction() {
-	    loadView("/gui/MotorSearchList.fxml", (MotorSearchController controller) -> {
+	    loadView("/gui/MotorSearchList.fxml", (MotorSearchListController controller) -> {
 	        controller.setMotorService(new MotorService());
 	        controller.updateTableView();
 	    });

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="393.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MotorSearchFormController">
+   <children>
+      <GridPane layoutX="17.0" layoutY="5.0" prefHeight="370.0" prefWidth="781.0" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="5.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="94.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="20.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Tensão" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <children>
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Pesquisar" />
+                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
+               </children>
+               <padding>
+                  <Insets top="4.0" />
+               </padding>
+            </HBox>
+            <Label text="Corrente (A)" GridPane.rowIndex="1" />
+            <Label text="Rotação" GridPane.rowIndex="2" />
+            <Label text="Carcaça" GridPane.rowIndex="3" />
+            <Label text="Fator de Potência" GridPane.rowIndex="4" />
+            <Label text="Fator de Serviço" GridPane.rowIndex="5" />
+            <Label text="Fabricante" GridPane.rowIndex="6" />
+            <Label text="Código SAP" GridPane.columnIndex="3" />
+            <Label text="Potência (W)" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="Rolamento Dianteiro" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="Rolamento Traseiro" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label text="Area" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxArea" prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxEquipamento" prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Label text="Equipamento" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <ComboBox fx:id="comboBoxTensao" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" />
+            <Label fx:id="labelErrorTensao" textFill="RED" GridPane.columnIndex="2" />
+            <Label fx:id="labelErrorCorrente" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorRotacao" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorFabricante" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label fx:id="labelErrorArea" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <Label fx:id="labelErrorEquipamento" textFill="RED" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <Label fx:id="labelErrorPotencia" textFill="RED" GridPane.columnIndex="5" />
+            <ComboBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox prefHeight="25.0" prefWidth="264.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="4" />
+            <ComboBox prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ComboBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ComboBox prefHeight="25.0" prefWidth="258.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
